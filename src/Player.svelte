@@ -3,6 +3,7 @@
 </script>
 
 <div class="player">
+    <img src={data.player_square_image_url} alt="Player image."/>
     <hgroup>
         <h2>{data.player_name}</h2>
         <h3>{data.player_team_id}</h3>

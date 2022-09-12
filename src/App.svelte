@@ -30,7 +30,9 @@
     const sortPosition = rankedRoster => {
         return rankedRoster.reduce((output, player) => {
             const pos = player.player_position_id
-            const formattedPlayer = formatPlayer(player)
+            // todo: undo:
+            // const formattedPlayer = formatPlayer(player)
+            const formattedPlayer = player
             if (output[pos].length >= positionsCount[pos]) {
                 if (flexValues.includes(pos)) {
                     if (output.FL.length >= positionsCount.FL) {
@@ -51,7 +53,7 @@
     const getResults = () => {
         axios
             .get(
-                `https://api.fantasypros.com/v2/json/nfl/2021/consensus-rankings?type=weekly&scoring=PPR&position=OP&week=${week}&experts=available`,
+                `https://api.fantasypros.com/v2/json/nfl/2022/consensus-rankings?type=weekly&scoring=PPR&position=OP&week=${week}&experts=available`,
                 {
                     headers: {
                         "x-api-key": CONFIG.fantasyProsAPIKey,
@@ -87,7 +89,7 @@
         <input type="number" bind:value={week} />
     </label>
     <button on:click={() => getResults()}>Get Results</button>
-    <div>
+    <div class="players-container">
         {#each Object.entries(results) as position}
             <div>
                 <h2>{position[0]}</h2>
@@ -106,8 +108,14 @@
 		padding: 20px;
 	}
 
+    .players-container {
+        display: flex;
+        flex-wrap: wrap
+    }
+
     .player-row {
         display: flex;
+        flex-wrap: wrap;
         margin-bottom: 40px;
     }
 </style>
